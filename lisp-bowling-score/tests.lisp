@@ -22,7 +22,9 @@
 
 (define-test after-ten-frames-no-bonus-is-added
              (assert-equal 300 (score (list 10 10 10 10 10 10 10 10 10 10 10 10)))
-             (assert-equal 270 (score (list 10 10 10 10 10 10 10 10 0 10 10 10 10)))) 
+             (assert-equal 50 (score (list 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10 10 10)))
+             (assert-equal 150 (score (list 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5)))
+             )
 
 (run-tests :all)
 (sb-ext:quit)

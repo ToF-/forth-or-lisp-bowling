@@ -12,10 +12,11 @@
 
 (defun score-at-frame (frame rolls)
   (cond ((null rolls) 0)
-        ((and (< frame 10) (spare rolls))
+        ((>= frame 10) 0)
+        ((spare rolls)
          (let ((remaining (rest (rest rolls))))
            (+ 10 (first remaining) (score-at-frame (1+ frame) remaining))))
-        ((and (< frame 9) (strike rolls))
+        ((strike rolls)
          (let ((remaining (rest rolls)))
            (+ 10 (first remaining) (first (rest remaining)) (score-at-frame (1+ frame) remaining))))
         ((> (length rolls) 2)
