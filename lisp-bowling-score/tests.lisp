@@ -14,9 +14,15 @@
 
 
 (define-test spare-counts-new-roll-as-a-bonus
-             (assert-equal 12 (score (list 6 4 1))))
+             (assert-equal 12 (score (list 6 4 1)))
+             (assert-equal 16 (score (list 7 3 3))))
 
+(define-test strike-adds-next-two-rolls-as-bonus
+            (assert-equal 30 (score (list 10 5 5))))
 
+(define-test after-ten-frames-no-bonus-is-added
+             (assert-equal 300 (score (list 10 10 10 10 10 10 10 10 10 10 10 10)))
+             (assert-equal 270 (score (list 10 10 10 10 10 10 10 10 0 10 10 10 10)))) 
 
 (run-tests :all)
 (sb-ext:quit)
