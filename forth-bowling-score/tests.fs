@@ -1,53 +1,18 @@
 require bowling.fs
 require ffl/tst.fs
 page
-T{
     ." no rolls then score is zero" cr
+    start score @ 0 ?S
 
-    init-game
-    compute-score 
-    0 ?S
-}T
+    ." adding rolls increases score" cr
+    start 3 +roll 2 +roll 4 +roll score @ 9 ?S
 
-T{
-    ." one average roll then score is roll" cr
+    ." closing a frame with a spare generates bonus" cr
+    start 4 +roll 6 +roll 3 +roll score @ 16 ?s
 
-    init-game
-    4 add-roll
-    compute-score 
-    4 ?S
-}T
+    ." closing a frame with a strike generates 2 boni" cr
+    start 10 +roll 5 +roll 1 +roll score @ 22 ?s
 
-T{
-    ." two average rolls then score is sum of rolls" cr
-
-    init-game
-    3 add-roll
-    2 add-roll
-    compute-score 
-    5 ?S
-}T
-
-T{
-    ." 10 in 2 rolls then 3rd roll added twice" cr
-
-    init-game
-    6 add-roll
-    4 add-roll
-    1 add-roll
-    compute-score 
-    12 ?S
-}T
-T{
-    ." not every 10 is score is a spare" cr
-
-    init-game
-    8 add-roll
-    1 add-roll
-    1 add-roll
-    4 add-roll
-    compute-score 
-    14 ?S
-}T
-
+    ." after ten frames, no rolls are added except bonus" cr
+    start 10 +roll 10 +roll 10 +roll 10 +roll 10 +roll 10 +roll 10 +roll 10 +roll 10 +roll 10 +roll 10 +roll 10 +roll score @ 300 ?s
 bye
