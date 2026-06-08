@@ -20,6 +20,9 @@
 (define-test strike-adds-next-two-rolls-as-bonus
             (assert-equal 30 (score (list 10 5 5))))
 
+(define-test strike-on-a-partial-game-cannot-be-counted
+             (assert-equal 20 (score (list 10 10))))
+
 (define-test after-ten-frames-no-bonus-is-added
              (assert-equal 300 (score (list 10 10 10 10 10 10 10 10 10 10 10 10)))
              (assert-equal 50 (score (list 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10 10 10)))
