@@ -30,7 +30,7 @@
     then ;
 
 : frame ( frame#,frame,bonus,score,roll -- …,frame )
-    2swap over >r 2swap r> ;
+    3 pick ;
 
 : last-roll ( frame -- roll )
     1- ;
@@ -57,22 +57,27 @@
     ." bonus:" . ." score:" . 
     cr ;
 
-: collect-bonus  ( frame#,frame,bonus,score,roll -- frame#,frame,bonus,score,roll )
-    >r swap bonus>>        \ frame#,frame,score,bonus',factor
-    r@ * rot + r> ;        \ frame#,frame,bonus',score',roll ;
+: collect-bonus  ( fnbr,frame,bonus,score,roll -r fnbr,frame,bonus',score',roll )
+    dup >r
+    rot bonus>>        \ fnbr,frame,score,roll,bonus',factor
+    rot * rot +        \ fnbr,frame,bonus',score'
+    r> ;
 
-: +roll ( frame#,frame,bonus,score,roll - frame#',frame',bonus',score' )
+: frame# ( fnbr,frame,bonus,score,roll -- …,fnbr )
+   4 pick ; 
+    
+: +roll ( fnbr,frame,bonus,score,roll -- fnbr',frame',bonus',score' )
    collect-bonus
-   2swap over >r 2swap r>
-   in-game? if
-      dup check-bonus
-      update-score
+   frame# in-game? if
+      dup >r 
+      check-bonus
+      r> update-score
    else
        drop
-   then .state ;
+   then ;
 
-: start ( -- frame#,frame,bonus,score )
+: start ( -- fnbr,frame,bonus,score )
     0 0 0 0 ;
 
-: score ( frame#',frame',bonus',score' )
-    2swap 2drop nip ;
+: score ( fnbr,frame,bonus,score -- score )
+    nip -rot 2drop ;
