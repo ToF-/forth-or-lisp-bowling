@@ -14,8 +14,7 @@ score_at_frame(Frame, [A,B,C|Rest], Score) :-
     score_at_frame(NextFrame, [C|Rest], ScoreRest),
     Score is 10 + C + ScoreRest.
 
-score_at_frame(Frame, [A,B,C|Rest], Score) :-
-    10 is A,
+score_at_frame(Frame, [10,B,C|Rest], Score) :-
     NextFrame is Frame + 1,
     score_at_frame(NextFrame, [B,C|Rest], ScoreRest),
     Score is 10 + B + C + ScoreRest.
