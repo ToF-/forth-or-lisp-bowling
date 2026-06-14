@@ -32,6 +32,3 @@ int score(struct game *game) {
     return result;
 }
 
-int doit() {
-    return 42;
-}
