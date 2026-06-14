@@ -26,14 +26,12 @@ qualify (x:y:z:rest) | x + y == 10 = (Spare y z, z:rest)
 qualify (x:y:rest) = (Frame x y, rest)
 qualify (x:rest) = (Open x, rest)
 
-frames :: [Int] -> Int -> [Frame]
-frames _ 10 = []
-frames [] _ = []
-frames rolls f = frame : frames rest (succ f)
+frames :: Int -> [Int] -> [Frame]
+frames 10 _ = []
+frames _ [] = []
+frames f rolls = frame : frames (succ f) rest
     where (frame, rest) = qualify rolls
 
 score :: [Int] -> Int
-score rolls = foldl (\acc q -> acc + points q) 0 (frames rolls 0)
-
-
+score = sum . map points . frames 0
 
